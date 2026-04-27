@@ -97,10 +97,28 @@
   <div class="card">🤖 AI Explanation</div>
 </section>
 
-<section class="ai-box">
-  <h3>Ask AI</h3>
-  <input placeholder="Ask about stocks..." />
-</section>
+<h3>Ask AI</h3>
+<input id="question" placeholder="Ask about stocks..." />
+<button onclick="askAI()">Ask</button>
+<p id="answer"></p>
+  <script>
+function askAI() {
+  const input = document.getElementById("question");
+  const answer = document.getElementById("answer");
 
-</body>
+  if (input.value === "") {
+    answer.innerText = "Please write a question.";
+    return;
+  }
+
+  if (input.value.toLowerCase().includes("dividend")) {
+    answer.innerText = "Dividend is money paid to shareholders.";
+  } else if (input.value.toLowerCase().includes("stock")) {
+    answer.innerText = "Stock means ownership in a company.";
+  } else {
+    answer.innerText = "AI will be connected soon...";
+  }
+}
+</script>
+  </body>
 </html>
