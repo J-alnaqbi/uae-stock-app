@@ -104,37 +104,31 @@
 <button class="btn" onclick="askAI()">Ask</button>
 <p id="answer"></p>
 <script>
+<script>
 function askAI() {
   const input = document.getElementById("question").value.toLowerCase();
   const answer = document.getElementById("answer");
 
-  if (input === "")
+  if (input === "") {
     answer.innerText = "Please write a question.";
     return;
-  }
-
-  if (input.includes("dividend")) {
-    answer.innerText = "Dividend is money paid by companies to shareholders.";
-  
-  else if (input.includes("stock")) {
+  } else if (input.includes("dividend")) {
+    answer.innerText = "Dividend is money paid to shareholders.";
+  } else if (input.includes("stock")) {
     answer.innerText = "Stock means ownership in a company.";
-  }
-  else if (input.includes("uae")) {
-    answer.innerText = "UAE markets include ADX (Abu Dhabi) and DFM (Dubai).";
-  }
-  else if (input.includes("adx")) {
+  } else if (input.includes("uae")) {
+    answer.innerText = "UAE markets include ADX and DFM.";
+  } else if (input.includes("adx")) {
     answer.innerText = "ADX is Abu Dhabi Securities Exchange.";
-  }
-  else if (input.includes("dfm")) {
+  } else if (input.includes("dfm")) {
     answer.innerText = "DFM is Dubai Financial Market.";
-  }
-  else if (input.includes("buy")) {
+  } else if (input.includes("buy")) {
     answer.innerText = "To buy stocks: open account, deposit money, choose stock.";
-  }
-  else {
-    answer.innerText = "Try asking about: stock, dividend, UAE, ADX.";
+  } else {
+    answer.innerText = "Try asking about: stock, dividend, UAE, ADX, DFM.";
   }
 }
+</script>
 </script>
   </body>
 </html>
