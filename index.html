@@ -6,13 +6,16 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #07111f, #0f172a);
+      background: radial-gradient(circle at top, #0f172a, #020617);
       color: white;
     }
 
     header {
       padding: 25px 40px;
       background: rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .logo {
@@ -21,28 +24,40 @@
       font-weight: bold;
     }
 
+    .lang-btn {
+      padding: 10px 18px;
+      border-radius: 20px;
+      border: none;
+      background: #22c55e;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     .hero {
       text-align: center;
       padding: 60px 20px;
     }
 
     .hero h1 {
-      font-size: 40px;
+      font-size: 42px;
     }
 
     .hero span {
       color: #22c55e;
+      text-shadow: 0 0 10px rgba(34,197,94,0.7);
     }
 
     .hero p {
       color: #cbd5e1;
+      font-size: 17px;
     }
 
     .btn {
       margin-top: 15px;
       padding: 14px 30px;
       border-radius: 12px;
-      background: #38bdf8;
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
       color: white;
       border: none;
       font-weight: bold;
@@ -51,6 +66,7 @@
 
     .cards {
       display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 15px;
       padding: 20px;
     }
@@ -60,6 +76,12 @@
       padding: 20px;
       border-radius: 15px;
       margin: 20px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: rgba(56,189,248,0.15);
     }
 
     input {
@@ -74,9 +96,16 @@
       margin-top: 15px;
       padding: 15px;
       border-radius: 12px;
-      background: rgba(56,189,248,0.12);
+      background: rgba(56,189,248,0.18);
       color: #38bdf8;
       font-weight: bold;
+    }
+
+    .legal {
+      color: #94a3b8;
+      font-size: 13px;
+      text-align: center;
+      padding: 25px;
     }
   </style>
 </head>
@@ -84,64 +113,103 @@
 <body>
 
 <header>
-  <div class="logo">🇦🇪 UAE Stock AI</div>
+  <div class="logo" id="logo">🇦🇪 UAE Stock AI</div>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">عربي</button>
 </header>
 
 <section class="hero">
-  <h1>Learn <span>UAE Stocks</span> with AI</h1>
-  <p>Simple tool for beginners to understand investing</p>
-  <button class="btn">Start</button>
+  <h1 id="mainTitle">Learn <span>UAE Stocks</span> with AI</h1>
+  <p id="mainText">Simple tool for beginners to understand investing</p>
+  <button class="btn" id="startBtn">Start Learning</button>
 </section>
 
 <section class="cards">
-  <div class="card">📊 Dividend Calculator</div>
-  <div class="card">📚 Beginner Lessons</div>
-  <div class="card">🤖 AI Explanation</div>
-  <div class="card">⚠️ Risk Awareness</div>
+  <div class="card" id="card1">📊 Dividend Calculator</div>
+  <div class="card" id="card2">📚 Beginner Lessons</div>
+  <div class="card" id="card3">🤖 AI Explanation</div>
+  <div class="card" id="card4">⚠️ Risk Awareness</div>
 </section>
 
 <section class="box">
-  <h3>Ask AI</h3>
+  <h3 id="askTitle">Ask AI</h3>
   <input id="question" placeholder="Ask about stock, dividend, risk, ADX, DFM..." />
-  <button class="btn" onclick="askAI()">Ask</button>
+  <button class="btn" onclick="askAI()" id="askBtn">Ask</button>
   <p id="answer"></p>
 </section>
 
 <section class="box">
-  <h3>Dividend Calculator</h3>
+  <h3 id="calcTitle">Dividend Calculator</h3>
   <input id="shares" type="number" placeholder="Number of shares" />
   <input id="dividend" type="number" placeholder="Dividend per share (AED)" />
-  <button class="btn" onclick="calculateDividend()">Calculate</button>
+  <button class="btn" onclick="calculateDividend()" id="calcBtn">Calculate</button>
   <p id="dividendResult"></p>
 </section>
 
+<div class="legal" id="legalText">
+  This app is for educational purposes only and does not provide financial advice.
+</div>
+
 <script>
+let lang = "en";
+
+function toggleLang() {
+  lang = lang === "en" ? "ar" : "en";
+
+  if (lang === "ar") {
+    document.body.style.direction = "rtl";
+    document.getElementById("langBtn").innerText = "English";
+    document.getElementById("mainTitle").innerHTML = "تعلم <span>أسهم الإمارات</span> بالذكاء الاصطناعي";
+    document.getElementById("mainText").innerText = "أداة بسيطة تساعد المبتدئين على فهم الاستثمار";
+    document.getElementById("startBtn").innerText = "ابدأ التعلم";
+    document.getElementById("card1").innerText = "📊 حاسبة توزيعات الأرباح";
+    document.getElementById("card2").innerText = "📚 دروس للمبتدئين";
+    document.getElementById("card3").innerText = "🤖 شرح بالذكاء الاصطناعي";
+    document.getElementById("card4").innerText = "⚠️ التوعية بالمخاطر";
+    document.getElementById("askTitle").innerText = "اسأل الذكاء";
+    document.getElementById("question").placeholder = "اسأل عن الأسهم، التوزيعات، المخاطر، ADX، DFM...";
+    document.getElementById("askBtn").innerText = "اسأل";
+    document.getElementById("calcTitle").innerText = "حاسبة توزيعات الأرباح";
+    document.getElementById("shares").placeholder = "عدد الأسهم";
+    document.getElementById("dividend").placeholder = "التوزيع لكل سهم بالدرهم";
+    document.getElementById("calcBtn").innerText = "احسب";
+    document.getElementById("legalText").innerText = "هذا التطبيق لأغراض تعليمية فقط ولا يقدم توصيات استثمارية.";
+  } else {
+    document.body.style.direction = "ltr";
+    document.getElementById("langBtn").innerText = "عربي";
+    document.getElementById("mainTitle").innerHTML = "Learn <span>UAE Stocks</span> with AI";
+    document.getElementById("mainText").innerText = "Simple tool for beginners to understand investing";
+    document.getElementById("startBtn").innerText = "Start Learning";
+    document.getElementById("card1").innerText = "📊 Dividend Calculator";
+    document.getElementById("card2").innerText = "📚 Beginner Lessons";
+    document.getElementById("card3").innerText = "🤖 AI Explanation";
+    document.getElementById("card4").innerText = "⚠️ Risk Awareness";
+    document.getElementById("askTitle").innerText = "Ask AI";
+    document.getElementById("question").placeholder = "Ask about stock, dividend, risk, ADX, DFM...";
+    document.getElementById("askBtn").innerText = "Ask";
+    document.getElementById("calcTitle").innerText = "Dividend Calculator";
+    document.getElementById("shares").placeholder = "Number of shares";
+    document.getElementById("dividend").placeholder = "Dividend per share (AED)";
+    document.getElementById("calcBtn").innerText = "Calculate";
+    document.getElementById("legalText").innerText = "This app is for educational purposes only and does not provide financial advice.";
+  }
+}
+
 function askAI() {
   const input = document.getElementById("question").value.toLowerCase();
   const answer = document.getElementById("answer");
 
   if (input === "") {
-    answer.innerText = "Please write a question.";
-  } else if (input.includes("dividend")) {
-    answer.innerText = "Dividend is money paid by a company to shareholders.";
-  } else if (input.includes("stock")) {
-    answer.innerText = "Stock means owning a small part of a company.";
-  } else if (input.includes("uae")) {
-    answer.innerText = "The UAE has two main stock markets: ADX and DFM.";
-  } else if (input.includes("adx")) {
-    answer.innerText = "ADX means Abu Dhabi Securities Exchange.";
-  } else if (input.includes("dfm")) {
-    answer.innerText = "DFM means Dubai Financial Market.";
-  } else if (input.includes("risk")) {
-    answer.innerText = "Risk means you may lose money if the stock price goes down.";
-  } else if (input.includes("investment")) {
-    answer.innerText = "Investment means buying assets and holding them for future value.";
-  } else if (input.includes("trading")) {
-    answer.innerText = "Trading is short-term buying and selling. Investing is usually long-term.";
-  } else if (input.includes("buy")) {
-    answer.innerText = "To buy stocks: open a broker account, deposit money, then choose a stock.";
+    answer.innerText = lang === "ar" ? "يرجى كتابة سؤال." : "Please write a question.";
+  } else if (input.includes("dividend") || input.includes("توزيع")) {
+    answer.innerText = lang === "ar" ? "توزيعات الأرباح هي مبالغ تدفعها الشركة للمساهمين." : "Dividend is money paid by a company to shareholders.";
+  } else if (input.includes("stock") || input.includes("سهم")) {
+    answer.innerText = lang === "ar" ? "السهم يعني امتلاك جزء صغير من شركة." : "Stock means owning a small part of a company.";
+  } else if (input.includes("uae") || input.includes("الإمارات")) {
+    answer.innerText = lang === "ar" ? "في الإمارات يوجد سوقان رئيسيان: سوق أبوظبي ADX وسوق دبي DFM." : "The UAE has two main stock markets: ADX and DFM.";
+  } else if (input.includes("risk") || input.includes("مخاطر")) {
+    answer.innerText = lang === "ar" ? "المخاطر تعني احتمال خسارة جزء من المال إذا انخفض سعر السهم." : "Risk means you may lose money if the stock price goes down.";
   } else {
-    answer.innerText = "Try asking about: stock, dividend, risk, UAE, ADX, DFM, trading.";
+    answer.innerText = lang === "ar" ? "جربي السؤال عن: سهم، توزيعات، مخاطر، ADX، DFM." : "Try asking about: stock, dividend, risk, ADX, DFM.";
   }
 }
 
@@ -151,12 +219,14 @@ function calculateDividend() {
   const result = document.getElementById("dividendResult");
 
   if (shares <= 0 || dividend <= 0) {
-    result.innerText = "Please enter valid numbers.";
+    result.innerText = lang === "ar" ? "يرجى إدخال أرقام صحيحة." : "Please enter valid numbers.";
     return;
   }
 
   const total = shares * dividend;
-  result.innerText = "Estimated dividend income: AED " + total.toFixed(2);
+  result.innerText = lang === "ar"
+    ? "الدخل المتوقع من التوزيعات: " + total.toFixed(2) + " درهم"
+    : "Estimated dividend income: AED " + total.toFixed(2);
 }
 </script>
 
